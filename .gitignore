@@ -1,0 +1,12 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node modules (if any packages are installed later)
+node_modules/
+package-lock.json
+
+# Local server log/configs
+.system_generated/
+*.log

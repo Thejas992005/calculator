@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator — Calculate Your Exact Age in Years, Months &amp; Days | CalcHub</title>
+  <meta name="description" content="Free online age calculator. Find your exact age in years, months, days, hours. Discover your zodiac sign, Chinese zodiac, next birthday countdown and more.">
+  <link rel="canonical" href="https://www.calchub.com/calculators/age-calculator.html">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/calculator.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="../index.html" class="nav-logo">
+        <span class="logo-icon">🧮</span>
+        <span class="logo-text">Calc<span class="logo-accent">Hub</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#calculators">Calculators</a>
+        <a href="../pages/about.html">About</a>
+        <a href="../pages/contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light">☀️</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-wrapper">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="../index.html" class="breadcrumb-item">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="../index.html#calculators" class="breadcrumb-item">Math</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-item active">Age Calculator</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="calc-page">
+    <div class="container">
+      <!-- Ad placeholder top -->
+      <div class="ad-placeholder ad-leaderboard">
+        <span>Advertisement</span>
+      </div>
+
+      <div class="calc-main">
+        <!-- Calculator Content -->
+        <div class="calc-content">
+          <div class="calc-container glass-card">
+            <div class="calc-header">
+              <h1 class="calc-title">Age Calculator</h1>
+              <p class="calc-description">Calculate your exact age in years, months, days — plus fun facts like your zodiac sign and next birthday countdown.</p>
+            </div>
+            <div class="calc-body">
+              <div class="calc-input-row">
+                <div class="calc-input-group">
+                  <label class="calc-label" for="ageDob">Date of Birth</label>
+                  <input type="date" class="calc-input" id="ageDob" required>
+                </div>
+                <div class="calc-input-group">
+                  <label class="calc-label" for="ageToDate">Calculate To</label>
+                  <input type="date" class="calc-input" id="ageToDate">
+                </div>
+              </div>
+              <button class="calc-btn calc-btn-primary" id="ageCalcBtn" onclick="calculateAge()">Calculate Age</button>
+            </div>
+
+            <!-- Results -->
+            <div class="calc-result" id="ageResultSection" style="display: none;">
+              <h3 style="margin-bottom: 1rem;">Your Age</h3>
+              <div class="calc-result-grid">
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageYears">—</span>
+                  <span class="calc-result-label">Years</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageMonths">—</span>
+                  <span class="calc-result-label">Months</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageDays">—</span>
+                  <span class="calc-result-label">Days</span>
+                </div>
+              </div>
+
+              <h3 style="margin: 1.5rem 0 1rem;">Total Duration</h3>
+              <div class="calc-result-grid">
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageTotalMonths">—</span>
+                  <span class="calc-result-label">Total Months</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageTotalWeeks">—</span>
+                  <span class="calc-result-label">Total Weeks</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageTotalDays">—</span>
+                  <span class="calc-result-label">Total Days</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageTotalHours">—</span>
+                  <span class="calc-result-label">Total Hours</span>
+                </div>
+              </div>
+
+              <h3 style="margin: 1.5rem 0 1rem;">🎂 Next Birthday</h3>
+              <div class="calc-result-grid">
+                <div class="calc-result-item" style="grid-column: 1 / -1;">
+                  <span class="calc-result-value" id="ageNextBirthday">—</span>
+                  <span class="calc-result-label" id="ageNextBirthdayLabel">days until your next birthday</span>
+                </div>
+              </div>
+
+              <h3 style="margin: 1.5rem 0 1rem;">✨ Fun Facts</h3>
+              <div class="calc-result-grid">
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageBornDay" style="font-size: 1.3rem;">—</span>
+                  <span class="calc-result-label">Born On</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageZodiac" style="font-size: 1.3rem;">—</span>
+                  <span class="calc-result-label">Zodiac Sign</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-value" id="ageChineseZodiac" style="font-size: 1.3rem;">—</span>
+                  <span class="calc-result-label">Chinese Zodiac</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula / How-to Section -->
+          <div class="info-section glass-card">
+            <h2>How to Calculate Age</h2>
+            <p>Age is calculated by finding the difference between the date of birth and a target date (usually today). The result is expressed in complete years, remaining months, and remaining days.</p>
+            <div class="formula-box">
+Age = Target Date − Date of Birth
+
+Years  = full years elapsed
+Months = remaining full months after years
+Days   = remaining days after months
+            </div>
+            <p><strong>Example:</strong> If you were born on <em>15 March 1995</em> and today is <em>29 May 2026</em>, your age is <strong>31 years, 2 months, and 14 days</strong>. That's a total of 11,398 days or roughly 273,552 hours!</p>
+            <p>The calculator also accounts for varying month lengths and leap years to give you a precise result.</p>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="faq-section glass-card">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+              <button class="faq-question">How does the age calculator handle leap years?</button>
+              <div class="faq-answer">
+                <p>The calculator uses JavaScript's built-in <code>Date</code> object, which correctly handles leap years. If your birthday is February 29 and the current year is not a leap year, the calculator still counts the days accurately. Your "next birthday" countdown will point to the next occurrence of Feb 29 (or Mar 1, depending on the year).</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">Can I calculate the age between two arbitrary dates?</button>
+              <div class="faq-answer">
+                <p>Yes! By default the "Calculate To" field is set to today's date, but you can change it to any date in the past or future. This is useful for finding out how old someone was on a specific date, or how old they will be on a future date.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">What zodiac sign system does this calculator use?</button>
+              <div class="faq-answer">
+                <p>The calculator uses the Western (tropical) zodiac system, which divides the year into 12 signs based on the position of the Sun. It also shows your Chinese zodiac animal, which is based on a 12-year cycle associated with your birth year.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <button class="faq-question">How accurate is the total hours calculation?</button>
+              <div class="faq-answer">
+                <p>The total hours calculation is based on the exact number of days between the two dates, multiplied by 24. It does not account for daylight saving time changes or the exact time of birth, so it is accurate to the nearest day (±24 hours).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="calc-sidebar">
+          <div class="ad-placeholder ad-rectangle">
+            <span>Advertisement</span>
+          </div>
+          <div class="related-calcs glass-card">
+            <h3>Related Calculators</h3>
+            <ul>
+              <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+              <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+              <li><a href="emi-calculator.html">EMI Calculator</a></li>
+              <li><a href="password-generator.html">Password Generator</a></li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Ad placeholder bottom -->
+      <div class="ad-placeholder ad-leaderboard">
+        <span>Advertisement</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">
+            <span style="font-size: 1.4rem;">🧮</span>
+            Calc<span class="logo-accent">Hub</span>
+          </div>
+          <p>Free online calculators for finance, health, math, and everyday life.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Calculators</h4>
+          <ul>
+            <li><a href="emi-calculator.html">EMI Calculator</a></li>
+            <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+            <li><a href="age-calculator.html">Age Calculator</a></li>
+            <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            <li><a href="password-generator.html">Password Generator</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="../pages/about.html">About Us</a></li>
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 CalcHub. All rights reserved.</span>
+        <span>Made with ❤️ for accurate calculations</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/calculators/age.js"></script>
+</body>
+</html>

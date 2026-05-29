@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Calculator — Check Your Body Mass Index Instantly | CalcHub</title>
+  <meta name="description" content="Free online BMI calculator to instantly check your Body Mass Index. Supports kg/lbs and cm/ft-in units with visual scale and health category results.">
+  <link rel="canonical" href="https://www.calchub.com/calculators/bmi-calculator.html">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/calculator.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="../index.html" class="nav-logo">
+        <span class="logo-icon">🧮</span>
+        <span class="logo-text">Calc<span class="logo-accent">Hub</span></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#calculators">Calculators</a>
+        <a href="../pages/about.html">About</a>
+        <a href="../pages/contact.html">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon-dark">🌙</span>
+          <span class="theme-icon-light">☀️</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-wrapper">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="../index.html" class="breadcrumb-item">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="../index.html#calculators" class="breadcrumb-item">Health</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-item active">BMI Calculator</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="calc-page">
+    <div class="container">
+      <!-- Ad placeholder top -->
+      <div class="ad-placeholder ad-leaderboard">
+        <span>Advertisement</span>
+      </div>
+
+      <div class="calc-main">
+        <!-- Calculator Content -->
+        <div class="calc-content">
+          <div class="calc-container glass-card">
+            <div class="calc-header">
+              <h1 class="calc-title">BMI Calculator</h1>
+              <p class="calc-description">Calculate your Body Mass Index to assess whether your weight is in a healthy range for your height.</p>
+            </div>
+            <div class="calc-body">
+              <!-- Weight -->
+              <div class="calc-input-group">
+                <label class="calc-label" for="bmiWeight">Weight</label>
+                <div class="calc-input-row">
+                  <div class="calc-input-with-unit">
+                    <input type="number" id="bmiWeight" class="calc-input" placeholder="e.g. 70" min="1" max="700" step="0.1">
+                    <span class="calc-input-unit" id="bmiWeightUnitLabel">kg</span>
+                  </div>
+                  <select id="bmiWeightUnit" class="calc-select">
+                    <option value="kg" selected>Kilograms (kg)</option>
+                    <option value="lbs">Pounds (lbs)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Height -->
+              <div class="calc-input-group">
+                <label class="calc-label" for="bmiHeightCm">Height</label>
+                <div class="calc-input-row">
+                  <select id="bmiHeightUnit" class="calc-select">
+                    <option value="cm" selected>Centimeters (cm)</option>
+                    <option value="ftin">Feet &amp; Inches</option>
+                  </select>
+                </div>
+                <!-- CM input -->
+                <div id="bmiHeightCmGroup">
+                  <div class="calc-input-with-unit" style="margin-top: var(--space-sm);">
+                    <input type="number" id="bmiHeightCm" class="calc-input" placeholder="e.g. 175" min="1" max="300" step="0.1">
+                    <span class="calc-input-unit">cm</span>
+                  </div>
+                </div>
+                <!-- Ft/In inputs -->
+                <div id="bmiHeightFtInGroup" style="display: none; margin-top: var(--space-sm);">
+                  <div class="calc-input-row">
+                    <div class="calc-input-with-unit">
+                      <input type="number" id="bmiHeightFt" class="calc-input" placeholder="Feet" min="0" max="9" step="1">
+                      <span class="calc-input-unit">ft</span>
+                    </div>
+                    <div class="calc-input-with-unit">
+                      <input type="number" id="bmiHeightIn" class="calc-input" placeholder="Inches" min="0" max="11" step="0.1">
+                      <span class="calc-input-unit">in</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Calculate Button -->
+              <div class="calc-btn-group">
+                <button class="calc-btn calc-btn-primary" id="bmiCalculateBtn" onclick="calculateBMI()">
+                  Calculate BMI
+                </button>
+                <button class="calc-btn calc-btn-secondary" onclick="resetBMI()">
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div class="calc-result" id="bmiResultSection" style="display: none;">
+              <!-- Big BMI Value -->
+              <div class="calc-result-big">
+                <div class="calc-result-value" id="bmiValue" style="font-size: 3.5rem;">—</div>
+                <div class="calc-result-label" style="font-size: var(--fs-base); margin-bottom: var(--space-sm);">Your BMI</div>
+                <div id="bmiCategoryTag"></div>
+              </div>
+
+              <!-- BMI Visual Gauge -->
+              <div class="bmi-gauge-section" style="margin-top: var(--space-xl);">
+                <div class="bmi-gauge" style="position: relative; height: 36px; border-radius: var(--radius-full); overflow: visible; display: flex; margin-bottom: var(--space-lg);">
+                  <div style="flex: 18.5; background: linear-gradient(90deg, #3b82f6, #60a5fa); border-radius: var(--radius-full) 0 0 var(--radius-full); position: relative;">
+                    <span style="position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: var(--fs-xs); color: var(--text-muted); white-space: nowrap;">Underweight</span>
+                  </div>
+                  <div style="flex: 6.5; background: linear-gradient(90deg, #10b981, #34d399); position: relative;">
+                    <span style="position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: var(--fs-xs); color: var(--text-muted); white-space: nowrap;">Normal</span>
+                  </div>
+                  <div style="flex: 5; background: linear-gradient(90deg, #f59e0b, #fbbf24); position: relative;">
+                    <span style="position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: var(--fs-xs); color: var(--text-muted); white-space: nowrap;">Overweight</span>
+                  </div>
+                  <div style="flex: 10; background: linear-gradient(90deg, #ef4444, #dc2626); border-radius: 0 var(--radius-full) var(--radius-full) 0; position: relative;">
+                    <span style="position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%); font-size: var(--fs-xs); color: var(--text-muted); white-space: nowrap;">Obese</span>
+                  </div>
+                  <!-- Pointer -->
+                  <div id="bmiPointer" style="position: absolute; top: -8px; width: 4px; height: calc(100% + 16px); background: var(--text-primary); border-radius: 2px; transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 0 8px rgba(0,0,0,0.5); z-index: 5; left: 0%;">
+                    <div style="position: absolute; top: -28px; left: 50%; transform: translateX(-50%); background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 2px 8px; font-size: var(--fs-xs); font-weight: 600; color: var(--text-primary); white-space: nowrap;" id="bmiPointerLabel">0</div>
+                  </div>
+                </div>
+                <!-- Scale numbers -->
+                <div style="display: flex; justify-content: space-between; margin-top: var(--space-xl); padding: 0 2px;">
+                  <span style="font-size: var(--fs-xs); color: var(--text-muted);">0</span>
+                  <span style="font-size: var(--fs-xs); color: var(--text-muted);">18.5</span>
+                  <span style="font-size: var(--fs-xs); color: var(--text-muted);">25</span>
+                  <span style="font-size: var(--fs-xs); color: var(--text-muted);">30</span>
+                  <span style="font-size: var(--fs-xs); color: var(--text-muted);">40+</span>
+                </div>
+              </div>
+
+              <!-- BMI Categories Reference Table -->
+              <div style="margin-top: var(--space-xl);">
+                <h3 style="font-size: var(--fs-base); font-weight: 600; margin-bottom: var(--space-lg); color: var(--text-secondary);">BMI Categories</h3>
+                <div class="calc-table-wrapper">
+                  <table class="calc-table">
+                    <thead>
+                      <tr>
+                        <th>Category</th>
+                        <th>BMI Range</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Underweight</td>
+                        <td>&lt; 18.5</td>
+                        <td><span class="calc-result-tag info">Below Normal</span></td>
+                      </tr>
+                      <tr>
+                        <td>Normal Weight</td>
+                        <td>18.5 – 24.9</td>
+                        <td><span class="calc-result-tag success">Healthy</span></td>
+                      </tr>
+                      <tr>
+                        <td>Overweight</td>
+                        <td>25.0 – 29.9</td>
+                        <td><span class="calc-result-tag warning">Above Normal</span></td>
+                      </tr>
+                      <tr>
+                        <td>Obese (Class I)</td>
+                        <td>30.0 – 34.9</td>
+                        <td><span class="calc-result-tag error">High Risk</span></td>
+                      </tr>
+                      <tr>
+                        <td>Obese (Class II)</td>
+                        <td>35.0 – 39.9</td>
+                        <td><span class="calc-result-tag error">Very High Risk</span></td>
+                      </tr>
+                      <tr>
+                        <td>Obese (Class III)</td>
+                        <td>≥ 40.0</td>
+                        <td><span class="calc-result-tag error">Extreme Risk</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formula / How-to Section -->
+          <div class="info-section glass-card">
+            <h2>How to Calculate BMI</h2>
+            <p>Body Mass Index (BMI) is a simple numerical value derived from your weight and height. It is widely used as a screening tool to categorize individuals into weight groups — underweight, normal weight, overweight, and obese.</p>
+            <div class="formula-box">BMI = Weight (kg) ÷ Height (m)²</div>
+            <p>Where:</p>
+            <ul>
+              <li><strong>Weight</strong> is measured in kilograms (kg). If using pounds, multiply by 0.453592 to convert.</li>
+              <li><strong>Height</strong> is measured in meters (m). If using centimeters, divide by 100. If using feet/inches, convert to total inches and multiply by 0.0254.</li>
+            </ul>
+            <p><strong>Example:</strong> A person weighing 70 kg with a height of 175 cm (1.75 m) has a BMI of 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = <strong>22.86</strong>, which falls in the "Normal Weight" category.</p>
+          </div>
+
+          <!-- FAQ Section -->
+          <div class="faq-section glass-card">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+              <button class="faq-question">What is BMI and why does it matter?</button>
+              <div class="faq-answer">
+                <p>BMI (Body Mass Index) is a ratio of your weight to your height squared. It matters because research shows a strong correlation between BMI and body fat percentage in most populations. While it's not a direct measure of body fat, it serves as an easy-to-calculate screening tool for potential health risks associated with being underweight, overweight, or obese — including heart disease, diabetes, and hypertension.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">What is a healthy BMI range?</button>
+              <div class="faq-answer">
+                <p>According to the World Health Organization (WHO), a healthy BMI range for adults is between 18.5 and 24.9. A BMI below 18.5 indicates underweight, 25.0 to 29.9 indicates overweight, and 30.0 or above indicates obesity. However, healthy ranges can vary slightly by ethnicity — for example, some Asian health authorities recommend a lower threshold (23.0) for overweight classification.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">What are the limitations of BMI?</button>
+              <div class="faq-answer">
+                <p>BMI has several limitations: it does not distinguish between muscle mass and fat mass, so muscular athletes may be classified as overweight despite having low body fat. It also doesn't account for age, gender, bone density, or fat distribution. Waist circumference, waist-to-hip ratio, and body fat percentage tests (such as DEXA scans) provide more comprehensive assessments of body composition and health risk.</p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Does BMI apply to children and teenagers?</button>
+              <div class="faq-answer">
+                <p>BMI is calculated the same way for children and teens, but the interpretation is different. For individuals aged 2–20, BMI is plotted on age- and sex-specific growth charts to obtain a percentile ranking. A child at or above the 85th percentile is considered overweight, while the 95th percentile and above indicates obesity. This age-adjusted approach accounts for normal changes in body composition during growth and development.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="calc-sidebar">
+          <div class="ad-placeholder ad-rectangle">
+            <span>Advertisement</span>
+          </div>
+          <div class="related-calcs glass-card">
+            <h3>Related Calculators</h3>
+            <a href="emi-calculator.html" class="related-calc-link">
+              <div class="related-calc-icon">💰</div>
+              <div class="related-calc-info">
+                <span class="related-calc-name">EMI Calculator</span>
+                <span class="related-calc-category">Finance</span>
+              </div>
+            </a>
+            <a href="age-calculator.html" class="related-calc-link">
+              <div class="related-calc-icon">🎂</div>
+              <div class="related-calc-info">
+                <span class="related-calc-name">Age Calculator</span>
+                <span class="related-calc-category">Tools</span>
+              </div>
+            </a>
+            <a href="percentage-calculator.html" class="related-calc-link">
+              <div class="related-calc-icon">📊</div>
+              <div class="related-calc-info">
+                <span class="related-calc-name">Percentage Calculator</span>
+                <span class="related-calc-category">Math</span>
+              </div>
+            </a>
+            <a href="password-generator.html" class="related-calc-link">
+              <div class="related-calc-icon">🔐</div>
+              <div class="related-calc-info">
+                <span class="related-calc-name">Password Generator</span>
+                <span class="related-calc-category">Tools</span>
+              </div>
+            </a>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Ad placeholder bottom -->
+      <div class="ad-placeholder ad-leaderboard">
+        <span>Advertisement</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo-text">
+            <span style="font-size: 1.4rem;">🧮</span>
+            Calc<span class="logo-accent">Hub</span>
+          </div>
+          <p>Free online calculators for finance, health, math, and everyday life.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Calculators</h4>
+          <ul>
+            <li><a href="emi-calculator.html">EMI Calculator</a></li>
+            <li><a href="bmi-calculator.html">BMI Calculator</a></li>
+            <li><a href="age-calculator.html">Age Calculator</a></li>
+            <li><a href="percentage-calculator.html">Percentage Calculator</a></li>
+            <li><a href="password-generator.html">Password Generator</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="../pages/about.html">About Us</a></li>
+            <li><a href="../pages/contact.html">Contact</a></li>
+            <li><a href="../pages/privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 CalcHub. All rights reserved.</span>
+        <span>Made with ❤️ for accurate calculations</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/calculators/bmi.js"></script>
+</body>
+</html>
